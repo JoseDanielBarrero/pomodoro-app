@@ -4,17 +4,18 @@ function useCountDown () {
 
     const [minutesLeft, setMinutesLeft] = React.useState(0);
     const [secondsLeft, setSecondsLeft] = React.useState(0);
+    const [running, setRunning] = React.useState(false);
 
-    React.useEffect( () => {
-        if(minutesLeft == 0 && secondsLeft==0)
+    React.useEffect( () => { 
+        if((minutesLeft == 0 && secondsLeft==0) || !running)
         {
             return;
         }
         const CountDown = setTimeout(() => {
         if(secondsLeft == 0)
         {
-                setMinutesLeft(minutesLeft-1);
-                setSecondsLeft(59);
+            setMinutesLeft(minutesLeft-1);
+            setSecondsLeft(59);
         }
         else {
             setSecondsLeft(secondsLeft-1)
@@ -22,7 +23,7 @@ function useCountDown () {
         },1000)
         
         return () => clearTimeout(CountDown);
-    },[minutesLeft, secondsLeft])
+    },[minutesLeft, secondsLeft, running])
 
     const getSeconds = () =>{
         return secondsLeft.toLocaleString('en-US', {
@@ -31,29 +32,29 @@ function useCountDown () {
         })
     }
 
-    const startClock = (minutesStart) => {
+    // Also works as a STOP Clock method
+
+    const initClock = (minutesStart) => {
         setMinutesLeft(minutesStart);
+        setSecondsLeft(0);
+        setRunning(false);
     }
 
     const pauseClock = () => {
-        /* clearTimeout(CountDown); */
+        setRunning(!running)
     }
 
-    const unpauseClock = () => {
-        /* clearTimeout(CountDown); */
+    const runClock = () => {
+        setRunning(true);
     }
-    const stopClock = () => {
-        setMinutesLeft();
-        /* clearTimeout(CountDown); */
-    }
+
 
     return {
         minutesLeft,
         getSeconds,
-        startClock,
+        initClock,
         pauseClock,
-        unpauseClock,
-        stopClock
+        runClock
     };
 }
 

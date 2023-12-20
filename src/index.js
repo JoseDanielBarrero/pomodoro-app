@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-
+import {ClockProvider} from './components/ClockContext/index';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ClockProvider>
+      <App />
+    </ClockProvider>
   </React.StrictMode>
 );
 

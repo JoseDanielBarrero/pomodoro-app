@@ -6,22 +6,19 @@ const ClockContext = React.createContext();
 function ClockProvider({children}){
     
     const [period, setPeriod] = React.useState(0);
+    const [totalPeriod, setTotalPeriod] = React.useState(4);
     const [focus, setFocus] = React.useState(true);
     const [focusTime, setFocusTime] = React.useState(25);
     const [restTime, setRestTime] = React.useState(5);
     
-    function getSeconds(){
-        return seconds.toLocaleString('en-US', {
-        minimumIntegerDigits: 2,
-        useGrouping: false
-        })
-    }
+    const {
+        minutesLeft,
+        getSeconds,
+        initClock,
+        pauseClock,
+        runClock
+    } = useCountDown();
 
-    function startClock() {
-        const timer = setTimeout(() => {
-
-        },1000)
-    }
 
     /* React.useEffect( () => {
         setTimeout(() => {
@@ -57,14 +54,19 @@ function ClockProvider({children}){
     return(
         <ClockContext.Provider value={
             {
-                period,
-                setPeriod,
+                totalPeriod,
+                setTotalPeriod,
                 focus,
                 setFocus,
                 focusTime,
                 setFocusTime,
                 restTime,
-                setRestTime
+                setRestTime,
+                initClock,
+                pauseClock,
+                minutesLeft,
+                getSeconds,
+                runClock
             }}>
             {children}
         </ClockContext.Provider>
