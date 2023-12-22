@@ -7,8 +7,7 @@ function MediaButtons() {
 
   const {
     pauseClock,
-    initClock,
-    focusTime
+    stopClock
   } = React.useContext(ClockContext)
 
   return (
@@ -23,7 +22,7 @@ function MediaButtons() {
       }}/></div>
       <div className='media-button media-button--stop'><FaStop className='icon icon--media'
       onClick={() => {
-        initClock(focusTime)
+        stopClock()
       }}/></div>
     </section>
   )

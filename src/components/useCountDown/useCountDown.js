@@ -5,10 +5,16 @@ function useCountDown () {
     const [minutesLeft, setMinutesLeft] = React.useState(0);
     const [secondsLeft, setSecondsLeft] = React.useState(0);
     const [running, setRunning] = React.useState(false);
+    const [finish, setFinish] = React.useState(false);
+
 
     React.useEffect( () => { 
-        if((minutesLeft == 0 && secondsLeft==0) || !running)
+        if(!running) {
+            return;
+        }
+        if(minutesLeft == 0 && secondsLeft==0)
         {
+            setFinish(true)
             return;
         }
         const CountDown = setTimeout(() => {
@@ -20,7 +26,7 @@ function useCountDown () {
         else {
             setSecondsLeft(secondsLeft-1)
         }
-        },1000)
+        },50)
         
         return () => clearTimeout(CountDown);
     },[minutesLeft, secondsLeft, running])
@@ -38,6 +44,7 @@ function useCountDown () {
         setMinutesLeft(minutesStart);
         setSecondsLeft(0);
         setRunning(false);
+        setFinish(false);
     }
 
     const pauseClock = () => {
@@ -46,6 +53,7 @@ function useCountDown () {
 
     const runClock = () => {
         setRunning(true);
+        setFinish(false);
     }
 
 
@@ -54,7 +62,8 @@ function useCountDown () {
         getSeconds,
         initClock,
         pauseClock,
-        runClock
+        runClock,
+        finish
     };
 }
 
