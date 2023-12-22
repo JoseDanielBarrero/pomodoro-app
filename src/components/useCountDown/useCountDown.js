@@ -26,7 +26,7 @@ function useCountDown () {
         else {
             setSecondsLeft(secondsLeft-1)
         }
-        },1000)
+        },50)
         
         return () => clearTimeout(CountDown);
     },[minutesLeft, secondsLeft, running])
