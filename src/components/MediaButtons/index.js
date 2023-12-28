@@ -12,18 +12,18 @@ function MediaButtons() {
 
   return (
     <section className='media-buttons-container'>
-      <div className='media-button media-button--play'><FaPlay className='icon icon--media'
-       onClick={() => {
+      <div className='media-button media-button--play'onClick={() => {
          pauseClock()
-       }}/></div>
-      <div className='media-button media-button--pause'><FaPause className='icon icon--media'
-      onClick={() => {
+       }}><FaPlay className='icon icon--media'
+       /></div>
+      <div className='media-button media-button--pause'onClick={() => {
         pauseClock()
-      }}/></div>
-      <div className='media-button media-button--stop'><FaStop className='icon icon--media'
-      onClick={() => {
+      }}><FaPause className='icon icon--media'
+      /></div>
+      <div className='media-button media-button--stop'onClick={() => {
         stopClock()
-      }}/></div>
+      }}><FaStop className='icon icon--media'
+      /></div>
     </section>
   )
 }
