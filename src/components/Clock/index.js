@@ -9,15 +9,11 @@ function Clock() {
 
   const {
     totalPeriod,
-    setTotalPeriod,
     focus,
     setFocus,
     focusTime,
-    setFocusTime,
     restTime,
-    setRestTime,
     initClock,
-    pauseClock,
     minutesLeft,
     getSeconds,
     finish,
@@ -25,12 +21,17 @@ function Clock() {
     period,
     runClock,
     longBreak,
+    stopClock
   } = React.useContext(ClockContext);
 
   React.useEffect(() => {
     initClock(focusTime);
-    
   },[])
+
+  React.useEffect(() => {
+    initClock(focusTime);
+    stopClock();
+  },[focusTime, restTime, longBreak])
 
   React.useEffect(() => {
     if(finish){
@@ -114,9 +115,7 @@ function Clock() {
           </div>
           <div className='period-counter'>
             <ul>
-              <li onClick={() => {
-                initClock(1)
-              }}><GiTomato className= {`icon-period ${(period>=1) && "period-completed"}`} /></li>
+              <li><GiTomato className= {`icon-period ${(period>=1) && "period-completed"}`} /></li>
               <li><GiTomato className= {`icon-period ${(period>=2) && "period-completed"}`}/></li>
               <li><GiTomato className= {`icon-period ${(period>=3) && "period-completed"}`}/></li>
               <li><GiTomato className= {`icon-period ${(period>=4) && "period-completed"}`}/></li>
